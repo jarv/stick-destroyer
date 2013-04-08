@@ -71,7 +71,7 @@ def destroyer():
     # turn on the LED when done
     gpio.output(11, gpio.HIGH)
 
-if (__name__ == '__main__'):
+if __name__ == '__main__':
     try:
         destroyer()
     except Exception as e:
