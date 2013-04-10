@@ -9,7 +9,7 @@ This is a quick hack to securely wipe a USB thumbdrive with a Raspberry Pi.
 
 An LED attached to pins 11/12 will flash while the following is done:
 
-* The first 100MB (configurable) of data is shredded. _8GB takes 20-30 minutes_
+* All of the data on the stick is shredded. _8GB takes 20-30 minutes_
 * New partition table loaded from the SD card, creates new 100MB partition at /dev/sda1
 * Pin 11 held high if when complete
 
@@ -34,18 +34,9 @@ All commands, output and errors logged to `/var/log/stick-destroyer.log`
  KERNEL=="sda", ACTION=="add", RUN+="/usr/local/bin/stick-destroyer.sh"
 ```
 
-* `/usr/local/etc/100M.partition`:
-```
- # partition table of /dev/sda
- unit: sectors
+* Shell wrapper that's called by udev
 
- /dev/sda1 : start=     2048, size=   204800, Id= c
- /dev/sda2 : start=        0, size=        0, Id= 0
- /dev/sda3 : start=        0, size=        0, Id= 0
- /dev/sda4 : start=        0, size=        0, Id= 0
-```
-
-* `/usr/local/bin/stick-destroyer.sh`:
+`/usr/local/bin/stick-destroyer.sh`:
 ```bash
  #!/bin/bash
  /usr/local/bin/stick-destroyer.py &
