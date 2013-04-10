@@ -65,8 +65,8 @@ def destroyer():
     gpio.setup(12, gpio.OUT)
     # set 12 low
     gpio.output(12, gpio.LOW)
-    run('shred --iterations 1 --verbose --size 200M /dev/sda 2>&1')
-    run('cat /usr/local/etc/100M.partition |  sfdisk /dev/sda 2>&1')
+    run('shred --iterations 1 --verbose /dev/sda 2>&1')
+    run('echo ";;c;*;" |  sfdisk /dev/sda 2>&1')
     run('mkfs.vfat /dev/sda1 2>&1')
     # turn on the LED when done
     gpio.output(11, gpio.HIGH)
